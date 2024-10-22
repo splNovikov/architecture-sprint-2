@@ -86,3 +86,9 @@ docker exec -it shard2 mongosh --port 27019
  db.helloDoc.countDocuments();
  exit();
 ```
+
+Проверить что Redis работает
+```shell
+docker exec -it redis redis-cli ping
+exit();
+```

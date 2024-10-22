@@ -132,6 +132,18 @@ services:
       interval: 5s
       start_period: 10s
 
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    command: ["redis-server"]
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      start_period: 10s
+
   pymongo_api:
     container_name: pymongo_api
     build:
@@ -140,11 +152,13 @@ services:
     image: kazhem/pymongo_api:1.0.0
     depends_on:
       - mongos_router
+      - redis
     ports:
       - 8080:8080
     environment:
       MONGODB_URL: "mongodb://mongos_router:27020"
       MONGODB_DATABASE_NAME: "somedb"
+      REDIS_URL: "redis://redis:6379"
 
 volumes:
   config-data:
