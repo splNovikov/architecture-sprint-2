@@ -22,7 +22,6 @@ exit();
 ```
 
 #### Инициализировать шарды и добавить реплики:
-1
 ```shell
 docker exec -it shard1 mongosh --port 27018
 
@@ -37,7 +36,6 @@ rs.initiate(
 );
 exit();
 ```
-2
 ```shell
 docker exec -it shard2 mongosh --port 27019
 
@@ -91,4 +89,8 @@ docker exec -it shard2 mongosh --port 27019
 ```shell
 docker exec -it redis redis-cli ping
 exit();
+```
+Ещё проверить что Redis работает
+```shell
+docker exec -it redis redis-cli KEYS 'api:cache*'
 ```

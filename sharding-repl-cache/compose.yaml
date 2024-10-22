@@ -138,7 +138,10 @@ services:
     restart: always
     ports:
       - "6379:6379"
-    command: ["redis-server"]
+    volumes:
+      - redis_data:/data
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+    command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
     healthcheck:
       test: [ "CMD", "redis-cli", "ping" ]
       interval: 5s
@@ -166,3 +169,4 @@ volumes:
   shard1-replica-data:
   shard2-data:
   shard2-replica-data:
+  redis_data: {}
