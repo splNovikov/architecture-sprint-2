@@ -140,8 +140,7 @@ services:
       - "6379:6379"
     volumes:
       - redis_data:/data
-      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
-    command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
+    command: [ "redis-server" ]
     healthcheck:
       test: [ "CMD", "redis-cli", "ping" ]
       interval: 5s

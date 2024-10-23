@@ -1,3 +1,14 @@
+## Вспомогательные команды
+
+#### Отправить спать
+```shell
+docker-compose down
+```
+#### Поднять с ребилдом
+```shell
+docker-compose up --build
+```
+
 ## Старт
 
 #### Запускаем mongodb и приложение
@@ -85,12 +96,12 @@ docker exec -it shard2 mongosh --port 27019
  exit();
 ```
 
-Проверить что Redis работает
+#### Проверить что Redis работает
 ```shell
 docker exec -it redis redis-cli ping
 exit();
 ```
-Ещё проверить что Redis работает
+#### Ещё проверить что Redis работает
 ```shell
 docker exec -it redis redis-cli KEYS 'api:cache*'
 ```
