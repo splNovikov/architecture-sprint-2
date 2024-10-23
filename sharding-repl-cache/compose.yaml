@@ -46,14 +46,36 @@ services:
       interval: 5s
       start_period: 10s
 
-  shard1_replica:
+  shard1_replica1:
     image: mongo:latest
-    container_name: shard1_replica
+    container_name: shard1_replica1
     restart: always
     ports:
       - "27021:27018"
     volumes:
-      - shard1-replica-data:/data/db
+      - shard1-replica1-data:/data/db
+    command:
+      [
+        "--shardsvr",
+        "--replSet",
+        "rs0",
+        "--bind_ip_all",
+        "--port",
+        "27018"
+      ]
+    healthcheck:
+      test: [ "CMD", "mongo", "--eval", "db.adminCommand('ping')" ]
+      interval: 5s
+      start_period: 10s
+
+  shard1_replica2:
+    image: mongo:latest
+    container_name: shard1_replica2
+    restart: always
+    ports:
+      - "27023:27018"
+    volumes:
+      - shard1-replica2-data:/data/db
     command:
       [
         "--shardsvr",
@@ -90,14 +112,36 @@ services:
       interval: 5s
       start_period: 10s
 
-  shard2_replica:
+  shard2_replica1:
     image: mongo:latest
-    container_name: shard2_replica
+    container_name: shard2_replica1
     restart: always
     ports:
       - "27022:27019"
     volumes:
-      - shard2-replica-data:/data/db
+      - shard2-replica1-data:/data/db
+    command:
+      [
+        "--shardsvr",
+        "--replSet",
+        "rs1",
+        "--bind_ip_all",
+        "--port",
+        "27019"
+      ]
+    healthcheck:
+      test: [ "CMD", "mongo", "--eval", "db.adminCommand('ping')" ]
+      interval: 5s
+      start_period: 10s
+
+  shard2_replica2:
+    image: mongo:latest
+    container_name: shard2_replica2
+    restart: always
+    ports:
+      - "27024:27019"
+    volumes:
+      - shard2-replica2-data:/data/db
     command:
       [
         "--shardsvr",
@@ -165,7 +209,9 @@ services:
 volumes:
   config-data:
   shard1-data:
-  shard1-replica-data:
+  shard1-replica1-data:
+  shard1-replica2-data:
   shard2-data:
-  shard2-replica-data:
+  shard2-replica1-data:
+  shard2-replica2-data:
   redis_data: {}
